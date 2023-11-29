@@ -5,7 +5,7 @@ export const App = () => {
 	const [todos, setTodos] = useState([]);
 
 	useEffect(() => {
-		fetch('https://jsonplaceholder.typicode.com/todos')
+		fetch('http://localhost:3000/todos')
 			.then((loadedData) => loadedData.json())
 			.then((loadedTodos) => {
 				setTodos(loadedTodos);
