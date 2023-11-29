@@ -14,12 +14,14 @@ export const App = () => {
 
 	return (
 		<div className={styles.App}>
-			<h1>Todos</h1>
-			{todos.map(({ userId, id, title, completed }) => (
-				<div key={id}>
-					{id}. {title} - {completed ? <span>V</span> : <span>X</span>}
-				</div>
-			))}
+			<div className={styles.Container}>
+				<h1>Todos</h1>
+				{todos.map(({ userId, id, title, completed }) => (
+					<div className={styles.todo} key={id}>
+						{completed ? <span>☑</span> : <span>☐</span>} {title}
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };

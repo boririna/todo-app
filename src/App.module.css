@@ -1,3 +1,28 @@
 .App {
-	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.Container {
+	width: 700px;
+	color: rgb(57, 22, 90);
+}
+
+.Container h1 {
+	color: rgb(17, 97, 101);
+}
+
+.todo {
+	margin-bottom: 5px;
+	border-left: 5px solid rgb(30, 122, 127);
+	padding-left: 3px;
+	padding-bottom: 3px;
+	border-bottom: 3px solid rgb(30, 122, 127);
+	border-radius: 0 0 0 5px;
+	font-size: larger;
+}
+
+.todo span {
+	font-weight: 600;
+	color: brown;
 }
