@@ -8,6 +8,9 @@ export const App = () => {
 	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [inputValue, setInputValue] = useState('');
+
+	// const searchTodos = searchValue ? todos.filter(todo => todo.title.includes(searchValue)) : todos
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -26,7 +29,7 @@ export const App = () => {
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
 				userId: 8,
-				title: 'Купить помидоры и огруцы',
+				title: inputValue,
 				completed: false,
 			}),
 		})
@@ -59,7 +62,7 @@ export const App = () => {
 
 	const requestDeleteTodo = () => {
 		setIsDeleting(true);
-		fetch('http://localhost:3000/todos/12', {
+		fetch(`http://localhost:3000/todos/${inputValue}`, {
 			method: 'DELETE',
 		})
 			.then((rawResponse) => rawResponse.json())
@@ -74,6 +77,23 @@ export const App = () => {
 		<div className={styles.App}>
 			<div className={styles.Container}>
 				<h1>Todos</h1>
+				<input
+					className={styles.inputField}
+					type="text"
+					value={inputValue}
+					onChange={({ target }) => setInputValue(target.value)}
+				/>
+				<div className={styles.buttons}>
+					<button disabled={isAdding} onClick={requestAddTodo}>
+						Добавить дело
+					</button>
+					<button disabled={isUpdating} onClick={requestUpdateTodo}>
+						Обновить дело
+					</button>
+					<button disabled={isDeleting} onClick={requestDeleteTodo}>
+						Удалить дело
+					</button>
+				</div>
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
@@ -83,16 +103,6 @@ export const App = () => {
 						</div>
 					))
 				)}
-
-				<button disabled={isAdding} onClick={requestAddTodo}>
-					Добавить дело
-				</button>
-				<button disabled={isUpdating} onClick={requestUpdateTodo}>
-					Обновить дело
-				</button>
-				<button disabled={isDeleting} onClick={requestDeleteTodo}>
-					Удалить дело
-				</button>
 			</div>
 		</div>
 	);
