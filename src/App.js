@@ -61,9 +61,9 @@ export const App = () => {
 			.finally(() => setIsUpdating(false));
 	};
 
-	const requestDeleteTodo = () => {
+	const requestDeleteTodo = (todoID) => {
 		setIsDeleting(true);
-		fetch(`http://localhost:3000/todos/${inputValue}`, {
+		fetch(`http://localhost:3000/todos/${todoID}`, {
 			method: 'DELETE',
 		})
 			.then((rawResponse) => rawResponse.json())
@@ -88,12 +88,12 @@ export const App = () => {
 					<button disabled={isAdding} onClick={requestAddTodo}>
 						Добавить дело
 					</button>
-					<button disabled={isUpdating} onClick={requestUpdateTodo}>
+					{/* <button disabled={isUpdating} onClick={requestUpdateTodo}>
 						Обновить дело
 					</button>
 					<button disabled={isDeleting} onClick={requestDeleteTodo}>
 						Удалить дело
-					</button>
+					</button> */}
 				</div>
 				{isLoading ? (
 					<p>Loading ...</p>
@@ -101,6 +101,15 @@ export const App = () => {
 					todos.map(({ userId, id, title, completed }) => (
 						<div className={styles.todo} key={id}>
 							{completed ? <span>☑</span> : <span>☐</span>} {title}
+							<button disabled={isUpdating} onClick={requestUpdateTodo}>
+								Редактировать
+							</button>
+							<button
+								disabled={isDeleting}
+								onClick={() => requestDeleteTodo(id)}
+							>
+								Удалить
+							</button>
 						</div>
 					))
 				)}
