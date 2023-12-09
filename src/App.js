@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
+import { Todo } from './components/todo/Todo';
 
 export const App = () => {
 	const [todos, setTodos] = useState([]);
@@ -88,29 +89,18 @@ export const App = () => {
 					<button disabled={isAdding} onClick={requestAddTodo}>
 						Добавить дело
 					</button>
-					{/* <button disabled={isUpdating} onClick={requestUpdateTodo}>
-						Обновить дело
-					</button>
-					<button disabled={isDeleting} onClick={requestDeleteTodo}>
-						Удалить дело
-					</button> */}
 				</div>
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
 					todos.map(({ userId, id, title, completed }) => (
-						<div className={styles.todo} key={id}>
-							{completed ? <span>☑</span> : <span>☐</span>} {title}
-							<button disabled={isUpdating} onClick={requestUpdateTodo}>
-								Редактировать
-							</button>
-							<button
-								disabled={isDeleting}
-								onClick={() => requestDeleteTodo(id)}
-							>
-								Удалить
-							</button>
-						</div>
+						<Todo
+							id={id}
+							title={title}
+							completed={completed}
+							isDeleting={isDeleting}
+							requestDeleteTodo={requestDeleteTodo}
+						/>
 					))
 				)}
 			</div>

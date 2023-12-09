@@ -16,22 +16,6 @@
 	color: rgb(17, 97, 101);
 }
 
-.todo {
-	margin-bottom: 5px;
-	border-left: 5px solid rgb(30, 122, 127);
-	padding-left: 3px;
-	padding-bottom: 3px;
-	border-bottom: 3px solid rgb(30, 122, 127);
-	border-radius: 0 0 0 5px;
-	font-size: larger;
-	width: 100%;
-}
-
-.todo span {
-	font-weight: 600;
-	color: brown;
-}
-
 .inputField {
 	margin-bottom: 20px;
 	border: 3px solid rgb(30, 122, 127);
