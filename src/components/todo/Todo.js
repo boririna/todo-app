@@ -3,7 +3,9 @@ import styles from './Todo.module.css';
 export const Todo = ({ id, title, completed, isDeleting, requestDeleteTodo }) => {
 	return (
 		<div className={styles.todo} key={id}>
-			{completed ? <span>☑</span> : <span>☐</span>} {title}
+			<div>
+				{completed ? <span>☑</span> : <span>☐</span>} {title}
+			</div>
 			{/* <button disabled={isUpdating} onClick={requestUpdateTodo}>
 				Редактировать
 			</button> */}

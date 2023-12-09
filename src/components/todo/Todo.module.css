@@ -7,6 +7,8 @@
 	border-radius: 0 0 0 5px;
 	font-size: larger;
 	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .todo span {
@@ -14,11 +16,11 @@
 	color: brown;
 }
 
-button {
+.todo button {
 	background-color: brown;
 	color: white;
 	padding: 10px 15px;
-	margin-right: 10px;
+	margin-left: 10px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;

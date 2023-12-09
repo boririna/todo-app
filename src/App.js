@@ -87,7 +87,7 @@ export const App = () => {
 				/>
 				<div className={styles.buttons}>
 					<button disabled={isAdding} onClick={requestAddTodo}>
-						Добавить дело
+						Добавить
 					</button>
 				</div>
 				{isLoading ? (
