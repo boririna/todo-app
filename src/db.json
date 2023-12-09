@@ -2,15 +2,21 @@
   "todos": [
     {
       "userId": 8,
-      "title": "Купить мыло",
+      "title": "Task 1",
       "completed": false,
       "id": 1
     },
     {
       "userId": 8,
-      "title": "Пропылесосить",
+      "title": "Task 2",
       "completed": false,
       "id": 2
+    },
+    {
+      "userId": 8,
+      "title": "Task 3",
+      "completed": false,
+      "id": 3
     }
   ]
 }
