@@ -43,15 +43,15 @@ export const App = () => {
 			.finally(() => setIsAdding(false));
 	};
 
-	const requestUpdateTodo = () => {
+	const requestUpdateTodo = (todoID) => {
 		setIsUpdating(true);
-		fetch('http://localhost:3000/todos/8', {
+		fetch(`http://localhost:3000/todos/${todoID}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
-				userId: 8,
-				title: 'Купить помидоры и огруцы',
-				completed: true,
+				userId: 3,
+				title: inputValue,
+				completed: false,
 			}),
 		})
 			.then((rawResponse) => rawResponse.json())
@@ -100,6 +100,10 @@ export const App = () => {
 							completed={completed}
 							isDeleting={isDeleting}
 							requestDeleteTodo={requestDeleteTodo}
+							inputValue={inputValue}
+							setInputValue={setInputValue}
+							isUpdating={isUpdating}
+							requestUpdateTodo={requestUpdateTodo}
 						/>
 					))
 				)}
