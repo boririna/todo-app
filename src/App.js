@@ -41,12 +41,14 @@ export const App = () => {
 				console.log('Дело добавлено, ответ сервера', response);
 				setRefreshTodos(!refreshTodos);
 			})
-			.finally(() => setIsAdding(false));
+			.finally(() => {
+				setIsAdding(false);
+				setInputValue('');
+			});
 	};
 
 	const requestUpdateTodo = (todoID) => {
 		setIsUpdating(true);
-		// setNewInputValue(todos.title);
 		fetch(`http://localhost:3000/todos/${todoID}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },

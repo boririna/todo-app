@@ -20,9 +20,9 @@ export const Todo = ({
 	};
 
 	return (
-		<div className={styles.todo} key={id}>
+		<div key={id}>
 			{isEditing ? (
-				<div>
+				<div className={styles.todo}>
 					<input
 						className={styles.inputField}
 						type="text"
@@ -34,8 +34,8 @@ export const Todo = ({
 					</button>
 				</div>
 			) : (
-				<div>
-					<div>
+				<div className={styles.todo}>
+					<div className={styles.text}>
 						{completed ? <span>☑</span> : <span>☐</span>} {title}
 					</div>
 					<div>
