@@ -16,6 +16,7 @@ export const Todo = ({
 
 	const requestEditTodo = () => {
 		setIsEditing(!isEditing);
+		setInputValue(title);
 	};
 
 	return (
@@ -28,7 +29,7 @@ export const Todo = ({
 						value={inputValue}
 						onChange={({ target }) => setInputValue(target.value)}
 					/>
-					<button disabled={isUpdating} onClick={requestUpdateTodo}>
+					<button disabled={isUpdating} onClick={() => requestUpdateTodo(id)}>
 						Сохранить
 					</button>
 				</div>
@@ -37,18 +38,23 @@ export const Todo = ({
 					<div>
 						{completed ? <span>☑</span> : <span>☐</span>} {title}
 					</div>
-					<button disabled={isEditing} onClick={requestEditTodo}>
-						Редактировать
-					</button>
+					<div>
+						<button disabled={isEditing} onClick={requestEditTodo}>
+							Редактировать
+						</button>
+						<button
+							disabled={isDeleting}
+							onClick={() => requestDeleteTodo(id)}
+						>
+							Удалить
+						</button>
+					</div>
 				</div>
 			)}
 
-			{/* <button disabled={isEditing} onClick={requestEditTodo}>
-				Редактировать
-			</button> */}
-			<button disabled={isDeleting} onClick={() => requestDeleteTodo(id)}>
+			{/* <button disabled={isDeleting} onClick={() => requestDeleteTodo(id)}>
 				Удалить
-			</button>
+			</button> */}
 		</div>
 	);
 };

@@ -10,6 +10,7 @@ export const App = () => {
 	const [isUpdating, setIsUpdating] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [inputValue, setInputValue] = useState('');
+	const [newInputValue, setNewInputValue] = useState('');
 
 	// const searchTodos = searchValue ? todos.filter(todo => todo.title.includes(searchValue)) : todos
 
@@ -45,12 +46,13 @@ export const App = () => {
 
 	const requestUpdateTodo = (todoID) => {
 		setIsUpdating(true);
+		// setNewInputValue(todos.title);
 		fetch(`http://localhost:3000/todos/${todoID}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
 				userId: 3,
-				title: inputValue,
+				title: newInputValue,
 				completed: false,
 			}),
 		})
@@ -100,8 +102,8 @@ export const App = () => {
 							completed={completed}
 							isDeleting={isDeleting}
 							requestDeleteTodo={requestDeleteTodo}
-							inputValue={inputValue}
-							setInputValue={setInputValue}
+							inputValue={newInputValue}
+							setInputValue={setNewInputValue}
 							isUpdating={isUpdating}
 							requestUpdateTodo={requestUpdateTodo}
 						/>
