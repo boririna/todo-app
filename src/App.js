@@ -22,6 +22,16 @@ export const App = () => {
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [newInputValue, setNewInputValue] = useState('');
+	const [searchTodo, setSearchTodo] = useState('');
+	// const [filteredTodos, setFilteredTodos] = useState(todos);
+
+	// const handleSearch = ({ target }) => {
+	// 	setSearchTodo(target.value);
+	// };
+
+	// useEffect(() => {
+	// 	setFilteredTodos((todos) => todos.filter((todo) => todo.includes(searchTodo)));
+	// }, [searchTodo]);
 
 	// const searchTodos = searchValue ? todos.filter(todo => todo.title.includes(searchValue)) : todos
 
@@ -95,6 +105,7 @@ export const App = () => {
 			<div className={styles.Container}>
 				<h1>Todos</h1>
 				<Search todos={todos} setTodos={setTodos} />
+				{/* <input value={searchTodo} onChange={handleSearch} /> */}
 				<input
 					className={styles.inputField}
 					type="text"

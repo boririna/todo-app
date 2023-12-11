@@ -7,9 +7,11 @@ import styles from './Search.module.css';
 
 export const Search = ({ todos, setTodos }) => {
 	const [searchValue, setSearchValue] = useState('');
-	const searchTodos = searchValue
-		? todos.filter((todo) => todo.title.includes(searchValue))
-		: todos;
+
+	const searchTodos =
+		searchValue !== ''
+			? todos.filter((todo) => todo.title.includes(searchValue))
+			: todos;
 	return (
 		<div className={styles.container}>
 			<input
