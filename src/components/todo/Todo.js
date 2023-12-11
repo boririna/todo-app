@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './Todo.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Todo = ({
 	id,
@@ -30,31 +31,27 @@ export const Todo = ({
 						onChange={({ target }) => setInputValue(target.value)}
 					/>
 					<button disabled={isUpdating} onClick={() => requestUpdateTodo(id)}>
-						Сохранить
+						<FontAwesomeIcon icon="floppy-disk" size="lg" />
 					</button>
 				</div>
 			) : (
 				<div className={styles.todo}>
 					<div className={styles.text}>
-						{completed ? <span>☑</span> : <span>☐</span>} {title}
+						{completed ? <span>☑</span> : <span>☐</span>} <p>{title}</p>
 					</div>
 					<div>
 						<button disabled={isEditing} onClick={requestEditTodo}>
-							Редактировать
+							<FontAwesomeIcon icon="pen-to-square" size="lg" />
 						</button>
 						<button
 							disabled={isDeleting}
 							onClick={() => requestDeleteTodo(id)}
 						>
-							Удалить
+							<FontAwesomeIcon icon="trash" size="lg" />
 						</button>
 					</div>
 				</div>
 			)}
-
-			{/* <button disabled={isDeleting} onClick={() => requestDeleteTodo(id)}>
-				Удалить
-			</button> */}
 		</div>
 	);
 };

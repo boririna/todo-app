@@ -2,15 +2,9 @@
   "todos": [
     {
       "userId": 3,
-      "title": "Send a letter",
+      "title": "Send a letter to a friend",
       "completed": false,
       "id": 1
-    },
-    {
-      "userId": 3,
-      "title": "Make a cake",
-      "completed": false,
-      "id": 2
     },
     {
       "userId": 3,
@@ -19,8 +13,8 @@
       "id": 6
     },
     {
-      "userId": 3,
-      "title": "Watch course videos and do homework",
+      "userId": 8,
+      "title": "Ответить на сообщения дизайнера",
       "completed": false,
       "id": 7
     }

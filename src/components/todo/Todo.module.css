@@ -31,5 +31,10 @@
 }
 
 .text {
-	width: 300px;
+	max-width: 450px;
+	display: flex;
+}
+
+.text p {
+	padding-left: 5px;
 }

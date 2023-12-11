@@ -1,6 +1,17 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import { Todo } from './components/todo/Todo';
+import { Search } from './components/search/Search';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+	faPenToSquare,
+	faTrash,
+	faPlus,
+	faFloppyDisk,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+library.add(faPenToSquare, faTrash, faPlus, faFloppyDisk);
 
 export const App = () => {
 	const [todos, setTodos] = useState([]);
@@ -83,6 +94,7 @@ export const App = () => {
 		<div className={styles.App}>
 			<div className={styles.Container}>
 				<h1>Todos</h1>
+				<Search todos={todos} setTodos={setTodos} />
 				<input
 					className={styles.inputField}
 					type="text"
@@ -91,7 +103,7 @@ export const App = () => {
 				/>
 				<div className={styles.buttons}>
 					<button disabled={isAdding} onClick={requestAddTodo}>
-						Добавить
+						<FontAwesomeIcon icon="plus" size="lg" />
 					</button>
 				</div>
 				{isLoading ? (
