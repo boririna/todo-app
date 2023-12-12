@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
+import _ from 'lodash';
 import { Todo } from './components/todo/Todo';
 import { Search } from './components/search/Search';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -9,10 +10,18 @@ import {
 	faPlus,
 	faFloppyDisk,
 	faMagnifyingGlass,
+	faArrowDownAZ,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-library.add(faPenToSquare, faTrash, faPlus, faFloppyDisk, faMagnifyingGlass);
+library.add(
+	faPenToSquare,
+	faTrash,
+	faPlus,
+	faFloppyDisk,
+	faMagnifyingGlass,
+	faArrowDownAZ,
+);
 
 export const App = () => {
 	const [todos, setTodos] = useState([]);
@@ -24,14 +33,22 @@ export const App = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [newInputValue, setNewInputValue] = useState('');
 	const [searchValue, setSearchValue] = useState('');
+	const [isSorted, setIsSorted] = useState(false);
 
 	const handleChange = ({ target }) => {
 		setSearchValue(target.value);
 	};
 
-	const searchTodos = searchValue
-		? todos.filter((todo) => todo.title.includes(searchValue))
+	let searchTodos = searchValue
+		? todos.filter((todo) =>
+				todo.title.toLowerCase().includes(searchValue.toLowerCase()),
+		  )
 		: todos;
+	let sortedTodos = isSorted ? _.orderBy(searchTodos, ['title'], ['asc']) : searchTodos;
+
+	const sortAscending = () => {
+		setIsSorted(!isSorted);
+	};
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -116,11 +133,15 @@ export const App = () => {
 					<button disabled={isAdding} onClick={requestAddTodo}>
 						<FontAwesomeIcon icon="plus" size="lg" />
 					</button>
+					{}
+					<button onClick={sortAscending}>
+						<FontAwesomeIcon icon="arrow-down-a-z" size="lg" />
+					</button>
 				</div>
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
-					searchTodos.map(({ userId, id, title, completed }) => (
+					sortedTodos.map(({ userId, id, title, completed }) => (
 						<Todo
 							id={id}
 							title={title}
