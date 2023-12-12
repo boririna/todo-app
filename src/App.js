@@ -8,10 +8,11 @@ import {
 	faTrash,
 	faPlus,
 	faFloppyDisk,
+	faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-library.add(faPenToSquare, faTrash, faPlus, faFloppyDisk);
+library.add(faPenToSquare, faTrash, faPlus, faFloppyDisk, faMagnifyingGlass);
 
 export const App = () => {
 	const [todos, setTodos] = useState([]);
