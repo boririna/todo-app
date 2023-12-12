@@ -12,7 +12,7 @@
 .Container {
 	width: 600px;
 	color: rgb(57, 22, 90);
-	padding: 10px;
+	margin: 2cqi;
 }
 
 .Container h1 {
@@ -40,4 +40,10 @@
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+.todoSearch {
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
 }

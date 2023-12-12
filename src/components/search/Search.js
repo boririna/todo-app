@@ -1,29 +1,18 @@
 // usf create useState
-// enf  create export named function
+// enf create export named function
 // edf create export default function
 
-import { useState } from 'react';
 import styles from './Search.module.css';
 
-export const Search = ({ todos, setTodos }) => {
-	const [searchValue, setSearchValue] = useState('');
-
-	const searchTodos =
-		searchValue !== ''
-			? todos.filter((todo) => todo.title.includes(searchValue))
-			: todos;
+export const Search = ({ onChange, searchValue }) => {
 	return (
-		<div className={styles.container}>
+		<div className={styles.search}>
 			<input
 				className={styles.inputField}
 				type="text"
 				value={searchValue}
-				onChange={({ target }) => {
-					setSearchValue(target.value);
-					setTodos(searchTodos);
-				}}
+				onChange={onChange}
 			/>
-			{/* <button onClick={() => setTodos(searchTodos)}>Поиск</button> */}
 		</div>
 	);
 };

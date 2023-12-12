@@ -22,18 +22,15 @@ export const App = () => {
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [newInputValue, setNewInputValue] = useState('');
-	const [searchTodo, setSearchTodo] = useState('');
-	// const [filteredTodos, setFilteredTodos] = useState(todos);
+	const [searchValue, setSearchValue] = useState('');
 
-	// const handleSearch = ({ target }) => {
-	// 	setSearchTodo(target.value);
-	// };
+	const handleChange = ({ target }) => {
+		setSearchValue(target.value);
+	};
 
-	// useEffect(() => {
-	// 	setFilteredTodos((todos) => todos.filter((todo) => todo.includes(searchTodo)));
-	// }, [searchTodo]);
-
-	// const searchTodos = searchValue ? todos.filter(todo => todo.title.includes(searchValue)) : todos
+	const searchTodos = searchValue
+		? todos.filter((todo) => todo.title.includes(searchValue))
+		: todos;
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -103,9 +100,11 @@ export const App = () => {
 	return (
 		<div className={styles.App}>
 			<div className={styles.Container}>
-				<h1>Todos</h1>
-				<Search todos={todos} setTodos={setTodos} />
-				{/* <input value={searchTodo} onChange={handleSearch} /> */}
+				<div className={styles.todoSearch}>
+					<h1>Todos</h1>
+					<Search onChange={handleChange} searchValue={searchValue} />
+				</div>
+
 				<input
 					className={styles.inputField}
 					type="text"
@@ -120,7 +119,7 @@ export const App = () => {
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
-					todos.map(({ userId, id, title, completed }) => (
+					searchTodos.map(({ userId, id, title, completed }) => (
 						<Todo
 							id={id}
 							title={title}
