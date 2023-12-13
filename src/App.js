@@ -11,6 +11,8 @@ import {
 	faFloppyDisk,
 	faMagnifyingGlass,
 	faArrowDownAZ,
+	faArrowUpZA,
+	faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -21,6 +23,8 @@ library.add(
 	faFloppyDisk,
 	faMagnifyingGlass,
 	faArrowDownAZ,
+	faArrowUpZA,
+	faRotateLeft,
 );
 
 export const App = () => {
@@ -133,10 +137,15 @@ export const App = () => {
 					<button disabled={isAdding} onClick={requestAddTodo}>
 						<FontAwesomeIcon icon="plus" size="lg" />
 					</button>
-					{}
-					<button onClick={sortAscending}>
-						<FontAwesomeIcon icon="arrow-down-a-z" size="lg" />
-					</button>
+					{isSorted ? (
+						<button onClick={sortAscending}>
+							<FontAwesomeIcon icon="rotate-left" size="lg" />
+						</button>
+					) : (
+						<button onClick={sortAscending}>
+							<FontAwesomeIcon icon="arrow-down-a-z" size="lg" />
+						</button>
+					)}
 				</div>
 				{isLoading ? (
 					<p>Loading ...</p>
