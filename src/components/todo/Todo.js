@@ -30,7 +30,13 @@ export const Todo = ({
 						value={inputValue}
 						onChange={({ target }) => setInputValue(target.value)}
 					/>
-					<button disabled={isUpdating} onClick={() => requestUpdateTodo(id)}>
+					<button
+						disabled={isUpdating}
+						onClick={() => {
+							requestUpdateTodo(id);
+							setIsEditing(!isEditing);
+						}}
+					>
 						<FontAwesomeIcon icon="floppy-disk" size="lg" />
 					</button>
 				</div>

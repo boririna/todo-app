@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
+import { ref, onValue, push, set, remove } from 'firebase/database';
+import { db } from './firebase';
 import _ from 'lodash';
 import { Todo } from './components/todo/Todo';
 import { Search } from './components/search/Search';
@@ -28,8 +30,8 @@ library.add(
 );
 
 export const App = () => {
-	const [todos, setTodos] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [todos, setTodos] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 	const [isAdding, setIsAdding] = useState(false);
 	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
@@ -54,32 +56,27 @@ export const App = () => {
 		setIsSorted(!isSorted);
 	};
 
+	const todosDbRef = ref(db, 'todos');
+
 	useEffect(() => {
-		setIsLoading(true);
-		fetch('http://localhost:3000/todos')
-			.then((loadedData) => loadedData.json())
-			.then((loadedTodos) => {
-				setTodos(loadedTodos);
-			})
-			.finally(() => setIsLoading(false));
-	}, [refreshTodos]);
+		// onValue() функция-подписчик, типа EventListener
+		return onValue(todosDbRef, (snapshot) => {
+			const loadedTodos = snapshot.val() || {};
+			setTodos(loadedTodos);
+			setIsLoading(false);
+		});
+	}, []);
 
 	const requestAddTodo = () => {
 		setIsAdding(true);
 
-		fetch('http://localhost:3000/todos', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				userId: 8,
-				title: inputValue,
-				completed: false,
-			}),
+		push(todosDbRef, {
+			userId: 8,
+			title: inputValue,
+			completed: false,
 		})
-			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
 				console.log('Дело добавлено, ответ сервера', response);
-				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => {
 				setIsAdding(false);
@@ -89,32 +86,25 @@ export const App = () => {
 
 	const requestUpdateTodo = (todoID) => {
 		setIsUpdating(true);
-		fetch(`http://localhost:3000/todos/${todoID}`, {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				userId: 3,
-				title: newInputValue,
-				completed: false,
-			}),
+		const todoChangeDbRef = ref(db, `todos/${todoID}`);
+
+		set(todoChangeDbRef, {
+			userId: 8,
+			title: newInputValue,
+			completed: false,
 		})
-			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
 				console.log('Дело обновлено, ответ сервера', response);
-				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => setIsUpdating(false));
 	};
 
 	const requestDeleteTodo = (todoID) => {
 		setIsDeleting(true);
-		fetch(`http://localhost:3000/todos/${todoID}`, {
-			method: 'DELETE',
-		})
-			.then((rawResponse) => rawResponse.json())
+		const todoChangeDbRef = ref(db, `todos/${todoID}`);
+		remove(todoChangeDbRef)
 			.then((response) => {
 				console.log('Дело удалено, ответ сервера', response);
-				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => setIsDeleting(false));
 	};
@@ -150,19 +140,21 @@ export const App = () => {
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
-					sortedTodos.map(({ userId, id, title, completed }) => (
-						<Todo
-							id={id}
-							title={title}
-							completed={completed}
-							isDeleting={isDeleting}
-							requestDeleteTodo={requestDeleteTodo}
-							inputValue={newInputValue}
-							setInputValue={setNewInputValue}
-							isUpdating={isUpdating}
-							requestUpdateTodo={requestUpdateTodo}
-						/>
-					))
+					Object.entries(sortedTodos).map(
+						([id, { userId, title, completed }]) => (
+							<Todo
+								id={id}
+								title={title}
+								completed={completed}
+								isDeleting={isDeleting}
+								requestDeleteTodo={requestDeleteTodo}
+								inputValue={newInputValue}
+								setInputValue={setNewInputValue}
+								isUpdating={isUpdating}
+								requestUpdateTodo={requestUpdateTodo}
+							/>
+						),
+					)
 				)}
 			</div>
 		</div>

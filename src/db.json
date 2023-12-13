@@ -1,34 +1,19 @@
 {
-  "todos": [
-    {
-      "userId": 3,
-      "title": "Send a letter to a friend",
-      "completed": false,
-      "id": 1
-    },
-    {
-      "userId": 3,
-      "title": "Buy bread, butter and eggs",
-      "completed": false,
-      "id": 6
-    },
-    {
-      "userId": 3,
-      "title": "Answer the question of a designer",
-      "completed": false,
-      "id": 7
-    },
-    {
-      "userId": 3,
-      "title": "Make a potato soup",
-      "completed": false,
-      "id": 8
-    },
-    {
-      "userId": 3,
-      "title": "Get a new ID",
-      "completed": false,
-      "id": 9
-    }
-  ]
+  "todos": {
+		"1": {
+			"userId": 3,
+			"title": "Send a letter to a friend",
+			"completed": false
+		},
+		"2": {
+			"userId": 3,
+			"title": "Buy bread, butter and eggs",
+			"completed": false
+		},
+		"3": {
+			"userId": 3,
+			"title": "Answer the question of a designer",
+			"completed": false
+		}
+	}
 }
