@@ -50,8 +50,12 @@ export const App = () => {
 				todo.title.toLowerCase().includes(searchValue.toLowerCase()),
 		  )
 		: todos;
-	let sortedTodos = isSorted ? _.orderBy(searchTodos, ['title'], ['asc']) : searchTodos;
 
+	let sortedTodos = isSorted
+		? _.orderBy(Object.entries(searchTodos), ['id'], ['asc'])
+		: searchTodos;
+
+	console.log(Object.entries(searchTodos));
 	const sortAscending = () => {
 		setIsSorted(!isSorted);
 	};
@@ -140,21 +144,19 @@ export const App = () => {
 				{isLoading ? (
 					<p>Loading ...</p>
 				) : (
-					Object.entries(sortedTodos).map(
-						([id, { userId, title, completed }]) => (
-							<Todo
-								id={id}
-								title={title}
-								completed={completed}
-								isDeleting={isDeleting}
-								requestDeleteTodo={requestDeleteTodo}
-								inputValue={newInputValue}
-								setInputValue={setNewInputValue}
-								isUpdating={isUpdating}
-								requestUpdateTodo={requestUpdateTodo}
-							/>
-						),
-					)
+					Object.entries(sortedTodos).map(([id, { title, completed }]) => (
+						<Todo
+							id={id}
+							title={title}
+							completed={completed}
+							isDeleting={isDeleting}
+							requestDeleteTodo={requestDeleteTodo}
+							inputValue={newInputValue}
+							setInputValue={setNewInputValue}
+							isUpdating={isUpdating}
+							requestUpdateTodo={requestUpdateTodo}
+						/>
+					))
 				)}
 			</div>
 		</div>
