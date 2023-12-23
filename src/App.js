@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { Todo } from './components/todo/Todo';
 import { Search } from './components/search/Search';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { Routes, Route, Link } from 'react-router-dom';
 import {
 	faPenToSquare,
 	faTrash,
@@ -27,7 +28,7 @@ library.add(
 	faRotateLeft,
 );
 
-export const App = () => {
+export const MainPage = () => {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isAdding, setIsAdding] = useState(false);
@@ -151,20 +152,31 @@ export const App = () => {
 					<p>Loading ...</p>
 				) : (
 					sortedTodos.map(({ userId, id, title, completed }) => (
-						<Todo
-							id={id}
-							title={title}
-							completed={completed}
-							isDeleting={isDeleting}
-							requestDeleteTodo={requestDeleteTodo}
-							inputValue={newInputValue}
-							setInputValue={setNewInputValue}
-							isUpdating={isUpdating}
-							requestUpdateTodo={requestUpdateTodo}
-						/>
+						<Link to={`task/${id}`}>
+							<Todo
+								id={id}
+								title={title}
+								completed={completed}
+								isDeleting={isDeleting}
+								requestDeleteTodo={requestDeleteTodo}
+								inputValue={newInputValue}
+								setInputValue={setNewInputValue}
+								isUpdating={isUpdating}
+								requestUpdateTodo={requestUpdateTodo}
+							/>
+						</Link>
 					))
 				)}
 			</div>
 		</div>
+	);
+};
+
+export const App = () => {
+	return (
+		<Routes>
+			<Route path="/" element={<MainPage />} />
+			<Route path="task/:id" element={<Todo />} />
+		</Routes>
 	);
 };
