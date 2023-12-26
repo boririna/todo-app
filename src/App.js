@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import styles from './App.module.css';
 import _ from 'lodash';
 import { Todo } from './components/todo/Todo';
+import { TodoPage } from './components/todopage/TodoPage';
 import { Search } from './components/search/Search';
+import { NotFound } from './components/notfound/NotFound';
+import { Button } from './components/button/Button';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { Routes, Route, Link } from 'react-router-dom';
 import {
@@ -152,19 +155,22 @@ export const MainPage = () => {
 					<p>Loading ...</p>
 				) : (
 					sortedTodos.map(({ userId, id, title, completed }) => (
-						<Link to={`task/${id}`}>
-							<Todo
-								id={id}
-								title={title}
-								completed={completed}
-								isDeleting={isDeleting}
-								requestDeleteTodo={requestDeleteTodo}
-								inputValue={newInputValue}
-								setInputValue={setNewInputValue}
-								isUpdating={isUpdating}
-								requestUpdateTodo={requestUpdateTodo}
-							/>
-						</Link>
+						<div>
+							<Link to={`task/${id}`}>
+								<Todo
+									id={id}
+									title={title}
+									completed={completed}
+									isDeleting={isDeleting}
+									requestDeleteTodo={requestDeleteTodo}
+									inputValue={newInputValue}
+									setInputValue={setNewInputValue}
+									isUpdating={isUpdating}
+									requestUpdateTodo={requestUpdateTodo}
+								/>
+							</Link>
+							{/* <Button></Button> */}
+						</div>
 					))
 				)}
 			</div>
@@ -176,7 +182,8 @@ export const App = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<MainPage />} />
-			<Route path="task/:id" element={<Todo />} />
+			<Route path="task/:id" element={<TodoPage />} />
+			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 };
