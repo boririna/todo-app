@@ -19,6 +19,7 @@ import {
 	faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fetchTodos } from './hooks/requestHook';
 
 library.add(
 	faPenToSquare,
@@ -60,7 +61,7 @@ export const MainPage = () => {
 
 	useEffect(() => {
 		setIsLoading(true);
-		fetch('http://localhost:3000/todos')
+		fetchTodos()
 			.then((loadedData) => loadedData.json())
 			.then((loadedTodos) => {
 				setTodos(loadedTodos);
@@ -156,19 +157,18 @@ export const MainPage = () => {
 				) : (
 					sortedTodos.map(({ userId, id, title, completed }) => (
 						<div>
-							<Link to={`task/${id}`}>
-								<Todo
-									id={id}
-									title={title}
-									completed={completed}
-									isDeleting={isDeleting}
-									requestDeleteTodo={requestDeleteTodo}
-									inputValue={newInputValue}
-									setInputValue={setNewInputValue}
-									isUpdating={isUpdating}
-									requestUpdateTodo={requestUpdateTodo}
-								/>
-							</Link>
+							<Todo
+								id={id}
+								title={title}
+								completed={completed}
+								// isDeleting={isDeleting}
+								// requestDeleteTodo={requestDeleteTodo}
+								// inputValue={newInputValue}
+								// setInputValue={setNewInputValue}
+								// isUpdating={isUpdating}
+								// requestUpdateTodo={requestUpdateTodo}
+							/>
+
 							{/* <Button></Button> */}
 						</div>
 					))
