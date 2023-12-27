@@ -19,7 +19,7 @@ import {
 	faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fetchTodos } from './hooks/requestHook';
+import { fetchTodos } from './hooks/useRequestFetch';
 
 library.add(
 	faPenToSquare,
@@ -92,24 +92,24 @@ export const MainPage = () => {
 			});
 	};
 
-	const requestUpdateTodo = (todoID) => {
-		setIsUpdating(true);
-		fetch(`http://localhost:3000/todos/${todoID}`, {
-			method: 'PUT',
-			headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			body: JSON.stringify({
-				userId: 3,
-				title: newInputValue,
-				completed: false,
-			}),
-		})
-			.then((rawResponse) => rawResponse.json())
-			.then((response) => {
-				console.log('Дело обновлено, ответ сервера', response);
-				setRefreshTodos(!refreshTodos);
-			})
-			.finally(() => setIsUpdating(false));
-	};
+	// const requestUpdateTodo = (todoID) => {
+	// 	setIsUpdating(true);
+	// 	fetch(`http://localhost:3000/todos/${todoID}`, {
+	// 		method: 'PUT',
+	// 		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+	// 		body: JSON.stringify({
+	// 			userId: 3,
+	// 			title: newInputValue,
+	// 			completed: false,
+	// 		}),
+	// 	})
+	// 		.then((rawResponse) => rawResponse.json())
+	// 		.then((response) => {
+	// 			console.log('Дело обновлено, ответ сервера', response);
+	// 			setRefreshTodos(!refreshTodos);
+	// 		})
+	// 		.finally(() => setIsUpdating(false));
+	// };
 
 	const requestDeleteTodo = (todoID) => {
 		setIsDeleting(true);
