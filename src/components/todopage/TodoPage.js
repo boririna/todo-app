@@ -23,7 +23,7 @@ export const TodoPage = () => {
 				setTodo(loadedTodo);
 			})
 			.finally(() => setIsLoading(false));
-	}, [id]);
+	}, [id, isEditing]);
 
 	const requestEditTodo = () => {
 		setIsEditing(!isEditing);
