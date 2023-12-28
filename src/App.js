@@ -17,6 +17,7 @@ import {
 	faArrowDownAZ,
 	faArrowUpZA,
 	faRotateLeft,
+	faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchTodos } from './hooks/useRequestFetch';
@@ -30,6 +31,7 @@ library.add(
 	faArrowDownAZ,
 	faArrowUpZA,
 	faRotateLeft,
+	faArrowLeft,
 );
 
 export const MainPage = () => {

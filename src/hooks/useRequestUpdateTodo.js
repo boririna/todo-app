@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useRequestUpdateTodo = (inputValue) => {
+export const useRequestUpdateTodo = (inputValue, setIsEditing) => {
 	const [isUpdating, setIsUpdating] = useState(false);
 	const [refreshTodos, setRefreshTodos] = useState(false);
 
@@ -22,7 +22,7 @@ export const useRequestUpdateTodo = (inputValue) => {
 			})
 			.finally(() => {
 				setIsUpdating(false);
-				// setIsEditing(!isEditing);
+				setIsEditing(false);
 			});
 	};
 

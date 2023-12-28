@@ -6,7 +6,9 @@ export const Todo = ({ id, title, completed }) => {
 		<div key={id} className={styles.todo}>
 			<div className={styles.text}>
 				{completed ? <span>☑</span> : <span>☐</span>}{' '}
-				<Link to={`task/${id}`}>{title}</Link>
+				<Link className={styles.linkStyle} to={`task/${id}`}>
+					{title}
+				</Link>
 			</div>
 		</div>
 	);

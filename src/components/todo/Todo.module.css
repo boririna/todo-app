@@ -18,10 +18,14 @@
 }
 
 .text {
-	max-width: 450px;
+	max-width: 500px;
 	display: flex;
 }
 
-.text p {
+.linkStyle {
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 	padding-left: 5px;
 }

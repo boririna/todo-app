@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './TodoPage.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '../button/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTodoById } from '../../hooks/useRequestFetch';
 import { useRequestUpdateTodo } from '../../hooks/useRequestUpdateTodo';
 import { useRequestDeleteTodo } from '../../hooks/useRequestDeleteTodo';
@@ -12,7 +12,6 @@ export const TodoPage = () => {
 	const [todo, setTodo] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [inputValue, setInputValue] = useState('');
-	// const [newInputValue, setNewInputValue] = useState('');
 
 	const { id } = useParams();
 
@@ -31,24 +30,16 @@ export const TodoPage = () => {
 		setInputValue(todo.title);
 	};
 
-	const { isUpdating, requestUpdateTodo } = useRequestUpdateTodo(inputValue);
+	const { isUpdating, requestUpdateTodo } = useRequestUpdateTodo(
+		inputValue,
+		setIsEditing,
+	);
 
 	const { isDeleting, requestDeleteTodo } = useRequestDeleteTodo();
 
-	return (
-		// <>
-		// 	{!isLoading ? (
-		// 		<div className={styles.todo}>
-		// 			<div className={styles.text}>
-		// 				{todo.completed ? <span>☑</span> : <span>☐</span>}
-		// 				<p>{todo.title}</p>
-		// 			</div>
-		// 		</div>
-		// 	) : (
-		// 		<p>Загрузка</p>
-		// 	)}
-		// </>
+	const navigate = useNavigate();
 
+	return (
 		<div className={styles.container}>
 			{isEditing ? (
 				<div className={styles.todo}>
@@ -89,6 +80,7 @@ export const TodoPage = () => {
 			) : (
 				<div>Загрузка</div>
 			)}
+			<Button icon="arrow-left" onClick={() => navigate(-1)}></Button>
 		</div>
 	);
 };
