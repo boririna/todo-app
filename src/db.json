@@ -2,13 +2,7 @@
   "todos": [
     {
       "userId": 3,
-      "title": "Feed a cat and a dog",
-      "completed": false,
-      "id": 9
-    },
-    {
-      "userId": 8,
-      "title": "Make a cake",
+      "title": "Make an apple cake",
       "completed": false,
       "id": 10
     },
@@ -19,8 +13,8 @@
       "id": 11
     },
     {
-      "userId": 8,
-      "title": "All the following are required, so the text must be in a single straight line that overflows a box where that overflow is hidden.",
+      "userId": 3,
+      "title": "All the following are required",
       "completed": false,
       "id": 13
     }
