@@ -15,6 +15,7 @@ import {
 	faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AppContext } from './context';
 
 library.add(
 	faPenToSquare,
@@ -119,52 +120,56 @@ export const App = () => {
 			.finally(() => setIsDeleting(false));
 	};
 
-	return (
-		<div className={styles.App}>
-			<div className={styles.Container}>
-				<div className={styles.todoSearch}>
-					<h1>Todos</h1>
-					<Search onChange={handleChange} searchValue={searchValue} />
-				</div>
+	const contextData = { isUpdating, requestUpdateTodo };
 
-				<input
-					className={styles.inputField}
-					type="text"
-					value={inputValue}
-					onChange={({ target }) => setInputValue(target.value)}
-				/>
-				<div className={styles.buttons}>
-					<button disabled={isAdding} onClick={requestAddTodo}>
-						<FontAwesomeIcon icon="plus" size="lg" />
-					</button>
-					{isSorted ? (
-						<button onClick={sortAscending}>
-							<FontAwesomeIcon icon="rotate-left" size="lg" />
+	return (
+		<AppContext.Provider value={contextData}>
+			<div className={styles.App}>
+				<div className={styles.Container}>
+					<div className={styles.todoSearch}>
+						<h1>Todos</h1>
+						<Search onChange={handleChange} searchValue={searchValue} />
+					</div>
+
+					<input
+						className={styles.inputField}
+						type="text"
+						value={inputValue}
+						onChange={({ target }) => setInputValue(target.value)}
+					/>
+					<div className={styles.buttons}>
+						<button disabled={isAdding} onClick={requestAddTodo}>
+							<FontAwesomeIcon icon="plus" size="lg" />
 						</button>
+						{isSorted ? (
+							<button onClick={sortAscending}>
+								<FontAwesomeIcon icon="rotate-left" size="lg" />
+							</button>
+						) : (
+							<button onClick={sortAscending}>
+								<FontAwesomeIcon icon="arrow-down-a-z" size="lg" />
+							</button>
+						)}
+					</div>
+					{isLoading ? (
+						<p>Loading ...</p>
 					) : (
-						<button onClick={sortAscending}>
-							<FontAwesomeIcon icon="arrow-down-a-z" size="lg" />
-						</button>
+						sortedTodos.map(({ userId, id, title, completed }) => (
+							<Todo
+								id={id}
+								title={title}
+								completed={completed}
+								isDeleting={isDeleting}
+								requestDeleteTodo={requestDeleteTodo}
+								inputValue={newInputValue}
+								setInputValue={setNewInputValue}
+								isUpdating={isUpdating}
+								requestUpdateTodo={requestUpdateTodo}
+							/>
+						))
 					)}
 				</div>
-				{isLoading ? (
-					<p>Loading ...</p>
-				) : (
-					sortedTodos.map(({ userId, id, title, completed }) => (
-						<Todo
-							id={id}
-							title={title}
-							completed={completed}
-							isDeleting={isDeleting}
-							requestDeleteTodo={requestDeleteTodo}
-							inputValue={newInputValue}
-							setInputValue={setNewInputValue}
-							isUpdating={isUpdating}
-							requestUpdateTodo={requestUpdateTodo}
-						/>
-					))
-				)}
 			</div>
-		</div>
+		</AppContext.Provider>
 	);
 };

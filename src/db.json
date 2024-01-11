@@ -2,7 +2,7 @@
   "todos": [
     {
       "userId": 3,
-      "title": "Send a letter to a friend",
+      "title": "Send a letter to a good friend",
       "completed": false,
       "id": 1
     },
@@ -23,12 +23,6 @@
       "title": "Make a potato soup",
       "completed": false,
       "id": 8
-    },
-    {
-      "userId": 3,
-      "title": "Get a new ID",
-      "completed": false,
-      "id": 9
     }
   ]
 }

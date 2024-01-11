@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Todo.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '../button/Button';
 
 export const Todo = ({
 	id,
@@ -10,7 +11,6 @@ export const Todo = ({
 	requestDeleteTodo,
 	inputValue,
 	setInputValue,
-	isUpdating,
 	requestUpdateTodo,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -30,9 +30,7 @@ export const Todo = ({
 						value={inputValue}
 						onChange={({ target }) => setInputValue(target.value)}
 					/>
-					<button disabled={isUpdating} onClick={() => requestUpdateTodo(id)}>
-						<FontAwesomeIcon icon="floppy-disk" size="lg" />
-					</button>
+					<Button requestUpdateTodo={() => requestUpdateTodo(id)} />
 				</div>
 			) : (
 				<div className={styles.todo}>
