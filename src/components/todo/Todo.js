@@ -30,7 +30,7 @@ export const Todo = ({
 						value={inputValue}
 						onChange={({ target }) => setInputValue(target.value)}
 					/>
-					<Button requestUpdateTodo={() => requestUpdateTodo(id)} />
+					<Button id={id} requestUpdateTodo={() => requestUpdateTodo(id)} />
 				</div>
 			) : (
 				<div className={styles.todo}>

@@ -57,7 +57,7 @@ export const App = () => {
 
 	useEffect(() => {
 		setIsLoading(true);
-		fetch('http://localhost:3000/todos')
+		fetch('http://localhost:3005/todos')
 			.then((loadedData) => loadedData.json())
 			.then((loadedTodos) => {
 				setTodos(loadedTodos);
@@ -68,7 +68,7 @@ export const App = () => {
 	const requestAddTodo = () => {
 		setIsAdding(true);
 
-		fetch('http://localhost:3000/todos', {
+		fetch('http://localhost:3005/todos', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
@@ -90,7 +90,7 @@ export const App = () => {
 
 	const requestUpdateTodo = (todoID) => {
 		setIsUpdating(true);
-		fetch(`http://localhost:3000/todos/${todoID}`, {
+		fetch(`http://localhost:3005/todos/${todoID}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			body: JSON.stringify({
@@ -109,7 +109,7 @@ export const App = () => {
 
 	const requestDeleteTodo = (todoID) => {
 		setIsDeleting(true);
-		fetch(`http://localhost:3000/todos/${todoID}`, {
+		fetch(`http://localhost:3005/todos/${todoID}`, {
 			method: 'DELETE',
 		})
 			.then((rawResponse) => rawResponse.json())

@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppContext } from '../../context';
 import { useContext } from 'react';
 
-export const Button = ({ requestUpdateTodo, id }) => {
-	const { isUpdating } = useContext(AppContext);
+export const Button = ({ id }) => {
+	const { isUpdating, requestUpdateTodo } = useContext(AppContext);
 	return (
 		<button disabled={isUpdating} onClick={() => requestUpdateTodo(id)}>
 			<FontAwesomeIcon icon="floppy-disk" size="lg" />
