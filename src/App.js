@@ -15,6 +15,9 @@ import {
 	faRotateLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoading, selectTodos } from './store/selectors';
+import { setLoading, setTodos } from './store/actions';
 
 library.add(
 	faPenToSquare,
@@ -28,8 +31,10 @@ library.add(
 );
 
 export const App = () => {
-	const [todos, setTodos] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	// const [todos, setTodos] = useState([]);
+	const todos = useSelector(selectTodos);
+	// const [isLoading, setIsLoading] = useState(false);
+	const isLoading = useSelector(selectLoading);
 	const [isAdding, setIsAdding] = useState(false);
 	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
@@ -38,6 +43,8 @@ export const App = () => {
 	const [newInputValue, setNewInputValue] = useState('');
 	const [searchValue, setSearchValue] = useState('');
 	const [isSorted, setIsSorted] = useState(false);
+
+	const dispatch = useDispatch();
 
 	const handleChange = ({ target }) => {
 		setSearchValue(target.value);
@@ -55,13 +62,14 @@ export const App = () => {
 	};
 
 	useEffect(() => {
-		setIsLoading(true);
-		fetch('http://localhost:3005/todos')
-			.then((loadedData) => loadedData.json())
-			.then((loadedTodos) => {
-				setTodos(loadedTodos);
-			})
-			.finally(() => setIsLoading(false));
+		dispatch(setLoading(true));
+		dispatch(setTodos());
+		// fetch('http://localhost:3005/todos')
+		// 	.then((loadedData) => loadedData.json())
+		// 	.then((loadedTodos) => {
+		// 		setTodos(loadedTodos);
+		// 	})
+		// 	.finally(() => dispatch(setLoading(false)));
 	}, [refreshTodos]);
 
 	const requestAddTodo = () => {
@@ -78,7 +86,6 @@ export const App = () => {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
-				console.log('Дело добавлено, ответ сервера', response);
 				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => {
@@ -100,7 +107,6 @@ export const App = () => {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
-				console.log('Дело обновлено, ответ сервера', response);
 				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => setIsUpdating(false));
@@ -113,7 +119,6 @@ export const App = () => {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
-				console.log('Дело удалено, ответ сервера', response);
 				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => setIsDeleting(false));
