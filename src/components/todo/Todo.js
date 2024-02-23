@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import styles from './Todo.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsDeleting, selectIsUpdating } from '../../store/selectors';
 
 export const Todo = ({
 	id,
 	title,
 	completed,
-	isDeleting,
 	requestDeleteTodo,
 	inputValue,
 	setInputValue,
-	isUpdating,
 	requestUpdateTodo,
 }) => {
+	const isDeleting = useSelector(selectIsDeleting);
+	const isUpdating = useSelector(selectIsUpdating);
 	const [isEditing, setIsEditing] = useState(false);
 
 	const requestEditTodo = () => {

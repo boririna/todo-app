@@ -16,8 +16,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectLoading, selectTodos } from './store/selectors';
-import { setLoading, setTodos } from './store/actions';
+import {
+	selectIsAdding,
+	selectLoading,
+	selectRefreshTodos,
+	selectTodos,
+} from './store/selectors';
+import {
+	requestAddTodo,
+	setIsAdding,
+	setIsDeleting,
+	setIsUpdating,
+	setLoading,
+	setRefreshTodos,
+	setTodos,
+} from './store/actions';
 
 library.add(
 	faPenToSquare,
@@ -31,14 +44,12 @@ library.add(
 );
 
 export const App = () => {
-	// const [todos, setTodos] = useState([]);
 	const todos = useSelector(selectTodos);
-	// const [isLoading, setIsLoading] = useState(false);
 	const isLoading = useSelector(selectLoading);
-	const [isAdding, setIsAdding] = useState(false);
+	const isAdding = useSelector(selectIsAdding);
+	// const refreshTodos = useSelector(selectRefreshTodos);
+
 	const [refreshTodos, setRefreshTodos] = useState(false);
-	const [isUpdating, setIsUpdating] = useState(false);
-	const [isDeleting, setIsDeleting] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [newInputValue, setNewInputValue] = useState('');
 	const [searchValue, setSearchValue] = useState('');
@@ -55,6 +66,7 @@ export const App = () => {
 				todo.title.toLowerCase().includes(searchValue.toLowerCase()),
 		  )
 		: todos;
+
 	let sortedTodos = isSorted ? _.orderBy(searchTodos, ['title'], ['asc']) : searchTodos;
 
 	const sortAscending = () => {
@@ -62,7 +74,6 @@ export const App = () => {
 	};
 
 	useEffect(() => {
-		dispatch(setLoading(true));
 		dispatch(setTodos());
 		// fetch('http://localhost:3005/todos')
 		// 	.then((loadedData) => loadedData.json())
@@ -72,8 +83,10 @@ export const App = () => {
 		// 	.finally(() => dispatch(setLoading(false)));
 	}, [refreshTodos]);
 
+	// dispatch(requestAddTodo(inputValue, refreshTodos, setRefreshTodos, setInputValue));
+
 	const requestAddTodo = () => {
-		setIsAdding(true);
+		dispatch(setIsAdding(true));
 
 		fetch('http://localhost:3005/todos', {
 			method: 'POST',
@@ -86,16 +99,18 @@ export const App = () => {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
+				// dispatch(setRefreshTodos(!refreshTodos));
 				setRefreshTodos(!refreshTodos);
 			})
 			.finally(() => {
-				setIsAdding(false);
+				dispatch(setIsAdding(false));
 				setInputValue('');
 			});
 	};
 
 	const requestUpdateTodo = (todoID) => {
-		setIsUpdating(true);
+		// setIsUpdating(true);
+		dispatch(setIsUpdating(true));
 		fetch(`http://localhost:3005/todos/${todoID}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -107,21 +122,24 @@ export const App = () => {
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
+				// dispatch(setRefreshTodos(!refreshTodos));
 				setRefreshTodos(!refreshTodos);
 			})
-			.finally(() => setIsUpdating(false));
+			.finally(() => dispatch(setIsUpdating(false)));
 	};
 
 	const requestDeleteTodo = (todoID) => {
-		setIsDeleting(true);
+		// setIsDeleting(true);
+		dispatch(setIsDeleting(true));
 		fetch(`http://localhost:3005/todos/${todoID}`, {
 			method: 'DELETE',
 		})
 			.then((rawResponse) => rawResponse.json())
 			.then((response) => {
+				// dispatch(setRefreshTodos(!refreshTodos));
 				setRefreshTodos(!refreshTodos);
 			})
-			.finally(() => setIsDeleting(false));
+			.finally(() => dispatch(setIsDeleting(false)));
 	};
 
 	return (
@@ -160,11 +178,9 @@ export const App = () => {
 							id={id}
 							title={title}
 							completed={completed}
-							isDeleting={isDeleting}
 							requestDeleteTodo={requestDeleteTodo}
 							inputValue={newInputValue}
 							setInputValue={setNewInputValue}
-							isUpdating={isUpdating}
 							requestUpdateTodo={requestUpdateTodo}
 						/>
 					))
