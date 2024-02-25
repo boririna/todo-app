@@ -4,17 +4,17 @@ export const setLoading = (loading) => ({
 });
 
 export const setIsAdding = (isAdding) => ({
-	type: 'SET_LOADING',
+	type: 'SET_ISADDING',
 	payload: isAdding,
 });
 
 export const setIsUpdating = (isUpdating) => ({
-	type: 'SET_LOADING',
+	type: 'SET_ISUPDATING',
 	payload: isUpdating,
 });
 
 export const setIsDeleting = (isDeleting) => ({
-	type: 'SET_LOADING',
+	type: 'SET_ISDELETING',
 	payload: isDeleting,
 });
 

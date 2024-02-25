@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	selectIsAdding,
+	selectIsUpdating,
 	selectLoading,
 	selectRefreshTodos,
 	selectTodos,
@@ -47,6 +48,7 @@ export const App = () => {
 	const todos = useSelector(selectTodos);
 	const isLoading = useSelector(selectLoading);
 	const isAdding = useSelector(selectIsAdding);
+	const isUpdating = useSelector(selectIsUpdating);
 	// const refreshTodos = useSelector(selectRefreshTodos);
 
 	const [refreshTodos, setRefreshTodos] = useState(false);

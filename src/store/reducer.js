@@ -30,6 +30,13 @@ export const reducer = (state = initialState, { type, payload }) => {
 			};
 		}
 
+		case 'SET_ISUPDATING': {
+			return {
+				...state,
+				isDeleting: payload,
+			};
+		}
+
 		case 'SET_TODOS': {
 			return {
 				...state,
